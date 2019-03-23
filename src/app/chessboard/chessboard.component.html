@@ -1,0 +1,5 @@
+<ng-template [ngIf]="deck">
+  <div fxLayout="row" *ngFor="let row of _rows; let rowIndex = index">
+    <app-card (click)="onClick(rowIndex, columnIndex)" *ngFor="let column of _columns; let columnIndex = index" [model]="getCard(rowIndex, columnIndex)"></app-card>
+  </div>
+</ng-template>

@@ -27,12 +27,12 @@
     
  
 .flip-card-front {
-    background-color: #bbb;
+    background: green;
     color: black;
 }
     
 .flip-card-back {
-    background: lightblue;
+    background: chartreuse;
     transform: rotateY(180deg);
 }
 

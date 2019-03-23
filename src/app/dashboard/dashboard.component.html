@@ -1,0 +1,13 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <input type="number" placeholder="Board Rows" formControlName="rows">
+    <input type="number" placeholder="Board Columns" formControlName="columns"> 
+    <button color="primary" type="submit" [disabled]="!form.valid">Generate</button>
+</form>
+<app-chessboard [rows]="rows" [columns]="columns" [deck]="deck" (onCardClicked)="onCardClicked($event)"></app-chessboard>
+<div *ngIf="deck?.length">
+  <div>
+    Current Player: {{currentPlayer?.name}}
+  </div>
+  <div>Score: {{currentPlayer?.state?.score}}</div>
+  <div>Turn: {{gameService?.turn}}</div>
+</div>
