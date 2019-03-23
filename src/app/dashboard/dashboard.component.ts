@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Card } from '../shared/card';
 import * as _ from 'lodash';
 import { Player } from '../shared/player';
@@ -12,8 +12,9 @@ import { GameService } from '../game-service/game.service';
 })
 export class DashboardComponent implements OnInit {
   form: FormGroup;
-  rows: number;
-  columns: number;
+  // rows: number;
+  // columns: number;
+  dimension: number;
   deck: Card[];
   currentPlayer: Player;
 
@@ -32,15 +33,17 @@ export class DashboardComponent implements OnInit {
 
   setupForm() {
     this.form = this.fb.group({
-      rows: [3, [Validators.min(2), Validators.required]],
-      columns: [3, [Validators.min(2), Validators.required]],
+      // rows: [2, [ this.formFalidator, Validators.required]],
+      // columns: [2, [ this.formFalidator, Validators.required]],
+      dimension: [2, [this.formFalidator, Validators.required]]
     });
   }
 
   onSubmit() {
     const formValue = this.form.value;
-    this.rows = formValue.rows;
-    this.columns = formValue.columns;
+    // this.rows = formValue.rows;
+    // this.columns = formValue.columns;
+    this.dimension = formValue.dimension;
     this.generateCards();
     this.gameService.totalCards = this.deck.length;
     this.gameService.resetGame();
@@ -57,7 +60,6 @@ export class DashboardComponent implements OnInit {
       'skinny-unicorn.png',
       'that-guy.png',
       'zeppelin.png',
-      'laptop.png',
       '404.png',
       'angular.png',
       'cat.png',
@@ -70,7 +72,9 @@ export class DashboardComponent implements OnInit {
       'bong.png'
     ];
 
-    let tempDeck = _.range(this.rows * this.columns);
+    const sortCards = CARD_NAMES.sort(this.compareRandom);
+
+    let tempDeck = _.range(Math.pow(this.dimension, 2));
     tempDeck = _.shuffle(
       tempDeck.map(card => Math.floor(card / 2))
     );
@@ -79,16 +83,31 @@ export class DashboardComponent implements OnInit {
     this.deck = tempDeck.map(card => new Card(card, false));
 
     for (let i = 0; i < this.deck.length; i++) {
-      this.deck[i] = new Card(this.deck[i].value, false, '../../assets/' + CARD_NAMES[this.deck[i].value]);
+      this.deck[i] = new Card(this.deck[i].value, false, '../../assets/' + sortCards[this.deck[i].value]);
     }
 
   }
 
+  compareRandom() {
+    return Math.random() - 0.5;
+  }
 
   onCardClicked(event) {
     const cardClicked = this.deck[event];
     if (!cardClicked.faceUp) {
       this.gameService.cardClick(cardClicked);
     }
+  }
+
+
+  private formFalidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const value = control.value;
+
+    const range = value === 2 || value === 4 || value === 6;
+    console.log(range);
+    if (!range) {
+      return { 'valid': true };
+    }
+    return null;
   }
 }

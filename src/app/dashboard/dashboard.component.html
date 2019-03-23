@@ -1,9 +1,9 @@
+<h1>Доступные размерности: 2, 4 и 6</h1>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <input type="number" placeholder="Board Rows" formControlName="rows">
-    <input type="number" placeholder="Board Columns" formControlName="columns"> 
-    <button color="primary" type="submit" [disabled]="!form.valid">Generate</button>
+    <input type="number" placeholder="Board Rows" formControlName="dimension">  
+    <button type="submit" [disabled]="!form.valid">Generate</button>
 </form>
-<app-chessboard [rows]="rows" [columns]="columns" [deck]="deck" (onCardClicked)="onCardClicked($event)"></app-chessboard>
+<app-chessboard [dimension]="dimension" [deck]="deck" (onCardClicked)="onCardClicked($event)"></app-chessboard>
 <div *ngIf="deck?.length">
   <div>
     Current Player: {{currentPlayer?.name}}

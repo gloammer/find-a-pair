@@ -12,17 +12,20 @@ import { GameService } from '../game-service/game.service';
 export class ChessboardComponent implements OnInit {
 
   @Input() deck: Card[];
-  @Input() set rows(value) {
-    this._rows = _.range(value);
+  @Input() set dimension(value) {
+    this._dimension = _.range(value);
   }
+  /*
   @Input() set columns(value) {
     this._columns = _.range(value);
   }
+  */
   // tslint:disable-next-line:no-output-on-prefix
   @Output() onCardClicked = new EventEmitter<number>();
 
-  _rows;
-  _columns;
+  // _rows;
+  // _columns;
+  _dimension;
   _deck;
 
   // GameService
@@ -40,5 +43,5 @@ export class ChessboardComponent implements OnInit {
   }
 
   private getCardIndex = (rowIndex: number, columnIndex: number) =>
-    rowIndex * this._rows.length + columnIndex
+    rowIndex * this._dimension.length + columnIndex
 }
