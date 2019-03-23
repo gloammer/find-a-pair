@@ -10,12 +10,12 @@ import { GameService } from '../game-service/game.service';
   styleUrls: ['./chessboard.component.css']
 })
 export class ChessboardComponent implements OnInit {
-  // tslint:disable-next-line:no-input-rename
-  @Input('deck') deck: Card[];
-  @Input('rows') set rows(value) {
+
+  @Input() deck: Card[];
+  @Input() set rows(value) {
     this._rows = _.range(value);
   }
-  @Input('columns') set columns(value) {
+  @Input() set columns(value) {
     this._columns = _.range(value);
   }
   // tslint:disable-next-line:no-output-on-prefix

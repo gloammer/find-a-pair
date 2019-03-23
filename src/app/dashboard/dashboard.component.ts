@@ -47,12 +47,43 @@ export class DashboardComponent implements OnInit {
   }
 
   generateCards = () => {
+
+    const CARD_NAMES = [
+      '8-ball.png',
+      'baked-potato.png',
+      'dinosaur.png',
+      'kronos.png',
+      'rocket.png',
+      'skinny-unicorn.png',
+      'that-guy.png',
+      'zeppelin.png',
+      'laptop.png',
+      '404.png',
+      'angular.png',
+      'cat.png',
+      'js.png',
+      'laptop.png',
+      'nike.png',
+      'paint.png',
+      'react-js.png',
+      'vue-js.png',
+      'bong.png'
+    ];
+
     let tempDeck = _.range(this.rows * this.columns);
     tempDeck = _.shuffle(
       tempDeck.map(card => Math.floor(card / 2))
     );
+
+    // исправить костыль
     this.deck = tempDeck.map(card => new Card(card, false));
+
+    for (let i = 0; i < this.deck.length; i++) {
+      this.deck[i] = new Card(this.deck[i].value, false, '../../assets/' + CARD_NAMES[this.deck[i].value]);
+    }
+
   }
+
 
   onCardClicked(event) {
     const cardClicked = this.deck[event];

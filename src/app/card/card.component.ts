@@ -7,8 +7,8 @@ import { Card } from '../shared/card';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-  // tslint:disable-next-line:no-input-rename
-  @Input('model') model: Card;
+
+  @Input() model: Card;
   card: Card;
   constructor() { }
 

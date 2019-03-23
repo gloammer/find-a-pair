@@ -1,9 +1,10 @@
 <div class="flip-card">
   <div class="flip-card-inner" [class.flipped]="model.faceUp">
     <div class="flip-card-front">
+        <img src="../../assets/back.png">
     </div>
     <div class="flip-card-back">
-      <div class="text">{{model.value}}</div>
+      <img src="{{ model.url }}">
     </div>
   </div>
 </div>
