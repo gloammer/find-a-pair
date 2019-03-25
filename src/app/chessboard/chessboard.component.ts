@@ -3,7 +3,6 @@ import * as _ from 'lodash';
 import { Card } from '../shared/card';
 import { GameService } from '../game-service/game.service';
 
-
 @Component({
   selector: 'app-chessboard',
   templateUrl: './chessboard.component.html',
@@ -15,16 +14,10 @@ export class ChessboardComponent implements OnInit {
   @Input() set dimension(value) {
     this._dimension = _.range(value);
   }
-  /*
-  @Input() set columns(value) {
-    this._columns = _.range(value);
-  }
-  */
+  
   // tslint:disable-next-line:no-output-on-prefix
   @Output() onCardClicked = new EventEmitter<number>();
 
-  // _rows;
-  // _columns;
   _dimension;
   _deck;
 
